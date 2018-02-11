@@ -35,7 +35,7 @@ var _object = function (callback) {
             this[child][el.name] = val
             return
         } 
-        this[el.name] = value
+        this[el.name] = val
     }
     for (i; i < size; i++) {
         var el = q[i]
