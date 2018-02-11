@@ -9,29 +9,52 @@ isFunc   = function (v) { return typeof v === 'function' },
 isArray  = function (v) { return Array.isArray(v) },
 isObject = function (v) { return !isArray(v) && typeof v === 'object' }
 
+var builderObject = function (m, el, val, callback) {
+    if (el.hasAttribute('child')) {
+        var child = el.getAttribute('child')
+        if (typeof m[child] === 'undefined') {
+            m[child] = {}
+        } 
+        m[child][el.name] = val
+        callback(child, m[child])
+        return
+    }
+}
+
 var _object = function (callback) {
     var q = this.query
     var size = q.length
     var i = 0
     var m = {} // mapping
+    m.__buildObject__ = function (el, val) {
+        if (el.hasAttribute('child')) {
+            var child = el.getAttribute('child')
+            if (typeof this[child] === 'undefined') {
+                this[child] = {}
+            }
+            this[child][el.name] = val
+            return
+        } 
+        this[el.name] = value
+    }
     for (i; i < size; i++) {
         var el = q[i]
         if (el.type !== 'submit' && el.type !== 'reset') {
             if(el.type === 'checkbox') {
-                m[el.name] = el.checked
+                m.__buildObject__(el, el.checked) 
             } else if (el.type === 'radio') {
                 if (typeof m[el.name] === 'undefined' ) {
                     m[el.name] = ''
                 }
                 if (el.checked) {
-                    m[el.name] = el.value
+                    m.__buildObject__(el, el.value)
                 }
             } else {
-                m[el.name] = el.value
+                m.__buildObject__(el, el.value)
             }
         }
     }
-
+    delete m.__buildObject__ // delete key of object when object already to use
     if (typeof callback !== 'undefined' && typeof callback === 'function') {
         callback(m)
     } else {
