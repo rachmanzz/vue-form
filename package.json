@@ -1,0 +1,24 @@
+{
+  "name": "vue-form",
+  "version": "1.0.0",
+  "description": "form object, form validation",
+  "main": "dist/vueform.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachmanzz/vue-form.git"
+  },
+  "keywords": [
+    "form",
+    "vue",
+    "mapping"
+  ],
+  "author": "Muhammad Abdurrahman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rachmanzz/vue-form/issues"
+  },
+  "homepage": "https://github.com/rachmanzz/vue-form#readme"
+}
