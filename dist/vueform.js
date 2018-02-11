@@ -108,4 +108,9 @@ var _install = function (Vue, Option) {
 }
 vueform.install = _install
 
-module.exports = vueform
+module.exports = {
+    vueform: vueform,
+    gForm: function (e) {
+        return new _form(e)
+    }
+}
