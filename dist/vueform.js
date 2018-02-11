@@ -56,7 +56,9 @@ _form.prototype.getObject = _object
 var vueform = function () {}
 
 var _install = function (Vue, Option) {
-    Vue.prototype.$form = _form
+    Vue.prototype.$form = function (e) {
+        return new _form(e)
+    }
 }
 vueform.install = _install
 
