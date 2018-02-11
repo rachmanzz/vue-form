@@ -77,15 +77,27 @@ var _ref = function (arg) {
 }
 
 var _form = function (e) {
-    if (typeof e.target !== 'undefined') {
-        this.target = e.target
+    const self = this
+    if(typeof e !== 'undefined') {
+        if (typeof e === 'function') {
+            return function (data) {
+                if (typeof data.target !== 'undefined') {
+                    self.target = data.target
+                    e(self.refByName().getObject())
+                } else {
+                    e(data)
+                }
+            }
+        } 
+        if (typeof e.target !== 'undefined') {
+            this.target = e.target
+        }
     }
-    return this
 }
 
 _form.prototype.refByName = _refByName
 _form.prototype.ref = _ref
-_form.prototype.refByClass = _refByClass
+_form.prototype.refByClass = _r
 _form.prototype.getObject = _object
 var vueform = function () {}
 
