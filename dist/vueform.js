@@ -48,6 +48,7 @@ var _form = function (e) {
     if (typeof e.target !== 'undefined') {
         this.target = e.target
     }
+    return this
 }
 
 _form.prototype.refByName = _refByName
