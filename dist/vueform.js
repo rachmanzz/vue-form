@@ -66,6 +66,15 @@ var _refByName = function () {
     this.query = this.target.querySelectorAll('[name]')
     return this
 }
+var _refByClass = function (arg) {
+    this.query = this.target.querySelectorAll('.' + arg)
+    return this
+}
+
+var _ref = function (arg) {
+    this.query = this.target.querySelectorAll(arg)
+    return this
+}
 
 var _form = function (e) {
     if (typeof e.target !== 'undefined') {
@@ -75,6 +84,8 @@ var _form = function (e) {
 }
 
 _form.prototype.refByName = _refByName
+_form.prototype.ref = _ref
+_form.prototype.refByClass = _refByClass
 _form.prototype.getObject = _object
 var vueform = function () {}
 
