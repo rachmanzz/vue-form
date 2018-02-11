@@ -52,7 +52,7 @@ var _form = function (e) {
 }
 
 _form.prototype.refByName = _refByName
-
+_form.prototype.getObject = _object
 var vueform = function () {}
 
 var _install = function (Vue, Option) {
