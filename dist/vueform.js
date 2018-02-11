@@ -55,4 +55,8 @@ _form.prototype.refByName = _refByName
 var vueform = function () {}
 
 var _install = function (Vue, Option) {
+    Vue.prototype.$form = _form
 }
+vueform.install = _install
+
+module.exports = vueform
