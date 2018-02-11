@@ -83,7 +83,7 @@ var _form = function (e) {
             return function (data) {
                 if (typeof data.target !== 'undefined') {
                     self.target = data.target
-                    e(self.refByName().getObject())
+                    self.refByName().getObject(e)
                 } else {
                     e(data)
                 }
@@ -97,7 +97,7 @@ var _form = function (e) {
 
 _form.prototype.refByName = _refByName
 _form.prototype.ref = _ref
-_form.prototype.refByClass = _r
+_form.prototype.refByClass = _refByClass
 _form.prototype.getObject = _object
 var vueform = function () {}
 
