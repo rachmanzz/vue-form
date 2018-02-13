@@ -1,6 +1,6 @@
 {
   "name": "vue-form",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "form object, form validation",
   "main": "dist/vueform.js",
   "scripts": {
