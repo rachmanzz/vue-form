@@ -21,7 +21,7 @@ var builderObject = function (m, el, val, callback) {
     }
 }
 
-var _object = function (callback, $$) {
+var _object = function (callback) {
     var q = this.query
     var size = q.length
     var i = 0
@@ -56,7 +56,6 @@ var _object = function (callback, $$) {
     }
     delete m.__buildObject__ // delete key of object when object already to use
     if (typeof callback !== 'undefined' && typeof callback === 'function') {
-        this = $$
         callback(m)
     } else {
         return m
@@ -76,15 +75,30 @@ var _ref = function (arg) {
     this.query = this.target.querySelectorAll(arg)
     return this
 }
-
-var _form = function (e, $$) {
+var _validate = function (_el) {
+    if(_el.hasAttribute('validate')) {
+        var str_validate = _el.getAttribute('validate')
+        // split to array
+        var arr_validate = str_validate.split('|')
+        var size = arr_validate.length
+        var i = 0
+        for (i; i < size; i++) {
+            var get = arr_validate[i]
+            if (get === 'required') {
+                
+            }
+        }
+    }
+    return true
+}
+var _form = function (e) {
     const self = this
     if(typeof e !== 'undefined') {
         if (typeof e === 'function') {
             return function (data) {
                 if (typeof data.target !== 'undefined') {
                     self.target = data.target
-                    self.refByName().getObject(e, $$)
+                    self.refByName().getObject(e)
                 } else {
                     e(data)
                 }
@@ -112,6 +126,6 @@ vueform.install = _install
 module.exports = {
     vueform: vueform,
     gForm: function (e) {
-        return new _form(e, this)
+        return new _form(e)
     }
 }
