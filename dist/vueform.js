@@ -50,6 +50,7 @@ var _object = function (callback) {
                     m.__buildObject__(el, el.value)
                 }
             } else {
+                _validate(el)
                 m.__buildObject__(el, el.value)
             }
         }
@@ -82,10 +83,67 @@ var _validate = function (_el) {
         var arr_validate = str_validate.split('|')
         var size = arr_validate.length
         var i = 0
+        if (typeof this.valiteObject !== 'object') {
+            this.validateObject = {}
+        }
+        if (typeof this.valid !== 'boolen') {
+            this.valid = true
+        }
+        var setErrorText = function (message) {
+            if (_el.hasAttribute('child')) {
+                if (typeof this.validateObject[_el.getAttribute('child')] === 'undefined') {
+                    this.validateObject[_el.getAttribute('child')] = {}
+                }
+                this.validateObject[_el.getAttribute('child')][_el.name] = message
+            } else {
+                this.validateObject[_el.getAttribute('child')][_el.name] = message
+            }
+        }
+        var setNotValid = function () {
+            if(this.valid) this.valid = false
+        }
         for (i; i < size; i++) {
             var get = arr_validate[i]
             if (get === 'required') {
-                
+                if(_el.value === null || _el.value === 'undefined' || _el.value === '' || _el.value.length === 0) {
+                    setErrorText('required')
+                    setNotValid()
+                }
+            }
+            if (/^min:[0-9]+$/.test(get)) { 
+                var min = get.match(/^min:([0-9]+)$/)[1]
+                if (_el.value.length < min) {
+                    setErrorText('field length less than ' + min)
+                    setNotValid()
+                }
+            }
+            if (/^max:[0-9]+$/.test(get)){
+                var max = get.match(/^max:([0-9]+)$/)[1]
+                if (_el.value.length > max) {
+                    setErrorText('field length more than ' + max)
+                    setNotValid()
+                }
+            }
+            if (/^eq:[\w]+$/.test(get)){
+                var eq = get.match(/^eq:([\w]+)$/)[1]
+                var input =this.target.querySelector('[name="' + eq + '"]')
+                if (_el.value !== input.value) {
+                    setErrorText(_el.name + ' field not match with ' + eq)
+                    setNotValid()
+                }
+            }
+            if(get === 'email' && !/^[_\.\w]+\@[_\.\w]+/.test(_el.value)){
+                setErrorText('email field incorrect')
+                setNotValid()
+            }
+            if (/^match:\{([\[\]\{\}\%\$.-+\w]+)\}\$$/.test(get)){
+                var rex = get.match(/^match:\{([\[\]\{\}\%\$.-+\w]+)\}\$$/)[1]
+                var exp = new rExp(rex)
+                if(!exp.test(_el.value)) {
+                    setErrorText('value is not correct')
+                    setNotValid()
+                }
+
             }
         }
     }
@@ -114,6 +172,7 @@ _form.prototype.refByName = _refByName
 _form.prototype.ref = _ref
 _form.prototype.refByClass = _refByClass
 _form.prototype.getObject = _object
+_form.prototype.valid = true
 var vueform = function () {}
 
 var _install = function (Vue, Option) {
