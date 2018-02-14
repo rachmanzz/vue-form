@@ -2,7 +2,7 @@
 
 ## Basic Usage
  
-    import { vueform } from 'vue-form'
+    import { vueform } from 'vueeform'
 
     Vue.use(vueform)
 
