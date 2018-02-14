@@ -136,15 +136,6 @@ var _validate = function (_el) {
                 setErrorText('email field incorrect')
                 setNotValid()
             }
-            if (/^match:\{([\[\]\{\}\%\$.-+\w]+)\}\$$/.test(get)){
-                var rex = get.match(/^match:\{([\[\]\{\}\%\$.-+\w]+)\}\$$/)[1]
-                var exp = new rExp(rex)
-                if(!exp.test(_el.value)) {
-                    setErrorText('value is not correct')
-                    setNotValid()
-                }
-
-            }
         }
     }
     return true
